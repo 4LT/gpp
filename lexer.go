@@ -2,6 +2,7 @@ package gpp
 
 import (
     "bufio"
+    "io"
     "strings"
     "fmt"
     "regexp"
@@ -39,7 +40,8 @@ func (e ParseError) Error() string {
     }
 }
 
-func ParseLang(langScanner *bufio.Scanner) ([]TokenMatcher, error) {
+func ParseLang(langReader io.Reader) ([]TokenMatcher, error) {
+    langScanner := bufio.NewScanner(langReader)
     var lang []TokenMatcher
     var err error
     lineNum := 0
@@ -170,7 +172,9 @@ lineNum int) error {
     return err
 }
 
-func Lex(lang []TokenMatcher, input *bufio.Scanner, tokStream chan Token)  {
+func Lex(lang []TokenMatcher, inputReader io.Reader,
+        tokStream chan Token)  {
+    input := bufio.NewScanner(inputReader)
     lineNum := 0
     var err error
 
