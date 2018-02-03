@@ -24,11 +24,9 @@ type ParseError struct {
     Message string
 }
 
-// "(.*)"\pZ+(.*)$
-var matchLangLine *regexp.Regexp = regexp.MustCompile("\"(.*)\"\\pZ+(.*)$")
+var matchLangLine *regexp.Regexp = regexp.MustCompile(`"(.*)"\pZ+(.*)$`)
 
-// ^[^"\pZ]+$
-var matchTokenType *regexp.Regexp = regexp.MustCompile("^[^\"\\pZ]+$")
+var matchTokenType *regexp.Regexp = regexp.MustCompile(`^[^"\pZ]+$`)
 
 var specialTypes = []string{"@skip", "@fail", "@conc"}
 
